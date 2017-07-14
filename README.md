@@ -87,3 +87,60 @@ long millis = timeElapsed.toMillis();
 一个`Duration`表示两个`Instance`实例间差距的量。你可以将这个`Duration`换算成各种单位：`toNanos`，`toMillis`，`getSeconds`，`toMinutes`，`toHours`，`toDays`。
 
 一个`Duration`会需要一个超出`long`能承受范围的值来做存储，单位为秒的值会存进一个`long`中，而单位为纳秒的值会额外需要一个`int`来做存储，如果你想以纳秒为单位来做计算，那就需要查看`Duration`提供的方法了。
+
+
+下面的例子利用我们刚刚学到的知识，以时间为指标衡量两个不同的算法：
+```java
+package timeline;
+
+import java.time.*;
+import java.util.*;
+import java.util.stream.*;
+
+public class Timeline {
+    public static void main(String[] args) {
+        Instant start = Instant.now();
+        runAlgorithm();
+        Instant end = Instant.now();
+        Duration timeElapsed = Duration.between(start, end);
+        long millis = timeElapsed.toMillis();
+        System.out.printf("%d milliseconds\n", millis);
+
+        Instant start2 = Instant.now();
+        runAlgorithm2();
+        Instant end2 = Instant.now();
+        Duration timeElapsed2 = Duration.between(start2, end2);
+        System.out.printf("%d milliseconds\n", timeElapsed2.toMillis());
+        boolean overTenTimesFaster = timeElapsed.multipliedBy(10)
+        .minus(timeElapsed2).isNegative();
+        System.out.printf("The first algorithm is %smore than ten times
+        faster",
+        overTenTimesFaster ? "" : "not ");
+    }
+
+    public static void runAlgorithm() {
+        int size = 10;
+        List<Integer> list = new Random().ints().map(i -> i % 100).limit(size)
+        .boxed().collect(Collectors.toList());
+        Collections.sort(list);
+        System.out.println(list);
+    }
+
+
+    public static void runAlgorithm2() {
+        int size = 10;
+        List<Integer> list = new Random().ints().map(i -> i % 100).limit(size)
+        .boxed().collect(Collectors.toList());
+        while (!IntStream.range(1, list.size()).allMatch(
+        i -> list.get(i - 1).compareTo(list.get(i)) <= 0))
+        Collections.shuffle(list);
+        System.out.println(list);
+    }
+}
+```
+### 6.2 Local Dates
+这一节涉及到了Java用用于人类交流的时间类：LocalDate/Time和TimeZone。
+
+LocalDate涉及到的方法概览：
+![md](https://github.com/jacket12356/java-/blob/master/1.PNG)
+![md](https://github.com/jacket12356/java-/blob/master/2.jpg)
