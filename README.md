@@ -139,7 +139,7 @@ public class Timeline {
 }
 ```
 ### 6.2 Local Dates
-这一节涉及到了Java用用于人类交流的时间类：LocalDate/Time和TimeZone。
+这一节涉及到了Java用于人类交流的时间类：LocalDate/Time和TimeZone。
 
 LocalDate涉及到的方法概览：
 ![md](https://github.com/jacket12356/java-/blob/master/1.PNG)
