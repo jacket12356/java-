@@ -144,3 +144,14 @@ public class Timeline {
 LocalDate涉及到的方法概览：
 ![md](https://github.com/jacket12356/java-/blob/master/1.PNG)
 ![md](https://github.com/jacket12356/java-/blob/master/2.jpg)
+
+
+举例来说，程序员日是一年中的第256天，我们可以用下面的方法算出它：  
+`LocalDate programmersDay = LocalDate.of(2014, 1, 1).plusDays(255);`
+
+让我们回想一下，用来表示两个`Instance`实例间差距的是`Duration`。而与之对应作用在`LocalDate`上的是`Period`，它表示所经过的一段时间：一天、一个月或者是一年。你可以调用`birthday.plus(Period.ofYears(1))`来获得明年的生日。当然，直接调用`birthday.plusYears(1)`更简单。
+
+`Until`方法得出两个`LocalDate`实例间相差时间段`Period`实例：  
+`independenceDay.until(christmas)`  
+那将是一个大小为5个月零21天的`Period`实例，这个结果有点模糊，因为一个月有多少天并不确定，你还可以用下面的方式直接得出天数：  
+`independenceDay.until(christmas, ChronoUnit.DAYS)  //174 days` 
