@@ -15,6 +15,7 @@
 + <a href="#6.2">6.2</href>
 + <a href="#6.3">6.3</href>
 + <a href="#6.4">6.4</href>
++ <a href="#5.7.3">5.7.3 反射分析</href>
 
 
 
@@ -272,4 +273,121 @@ LocalTime bedTime = LocalTime.of(22, 30); //或者LocalTime.of(22, 30, 0)
 
 我们学了这些新的Java时间类，为了实现向后兼容，处理老代码，标准库还提供了这样一些方法：
 ![md](https://github.com/jacket12356/java-/blob/master/5.jpeg)
+##### <a href="#cate">回目录</href>
+
+<a name="5.7.3"> </href>
+### 5.7.3 反射分析
+反射功能很强大，之前看书上总是弄不通（主要还是太详细了），直到上课时老师讲了一遍才茅塞顿开，语法已经很清楚了，书上专门开了一小节讲了一个关于如何利用反射分析任意一个类，我试着弄了一下，真还挺好的，配合着API文档效果一定很棒吧。
+```java
+package ex1;
+
+import java.util.*;
+import java.lang.reflect.*;
+
+//为使类的代码更为易读，改写了原来书中的版本，保不齐有bug
+public class ReflecTest {
+	public static void main(String... args){
+		String name;
+		
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter class name(e.g. java.util.Date):");
+		name = in.next();
+		
+		try{
+			Class c1 = Class.forName(name);
+			Class superc1 = c1.getSuperclass();
+			String modifiers = Modifier.toString(c1.getModifiers());
+			if(modifiers.length()>0)	System.out.print(modifiers + " ");
+			System.out.print("class " + name);
+			if(superc1 != null && superc1 != Object.class) System.out.print("extends " + superc1.getName());
+			System.out.print(" {\n");
+			printConstructors(c1);
+			System.out.println();
+			printMethods(c1);
+			System.out.println();
+			printFields(c1);
+			System.out.println("}");
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static void printConstructors(Class c1){
+		String name = c1.getSimpleName();
+		Constructor[] constructors = c1.getDeclaredConstructors();
+		
+		for(Constructor c : constructors){
+			System.out.print("	");
+			String modifiers = Modifier.toString(c.getModifiers());
+			if(modifiers.length()>0)	System.out.print(modifiers + " ");
+			System.out.print(name + "(");
+			
+			//输出形参
+			Class[] paramTypes = c.getParameterTypes();
+			for(int j = 0;j < paramTypes.length;j++){
+				if(j > 0)	System.out.print(", ");
+				System.out.print(paramTypes[j].getSimpleName());
+			}
+			System.out.println(");");
+		}
+	}
+	
+	public static void printMethods(Class c1){
+		Method[] methods = c1.getDeclaredMethods();
+		
+		for (Method m : methods){
+			Class retType = m.getReturnType();
+			String name = m.getName();
+			
+			System.out.print("	");
+			String modifiers = Modifier.toString(m.getModifiers());
+			if(modifiers.length()>0)	System.out.print(modifiers + " ");
+			
+			if(retType.getName().equals("void") || !retType.getName().contains("."))
+				System.out.print(retType.getName()+ " " + name + "(");
+			else{
+				try {
+					System.out.print(Class.forName(retType.getName()).getSimpleName()+ " " + name + "(");
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+				
+			
+			
+			//输出形参
+			Class[] paramTypes = m.getParameterTypes();
+			for(int j = 0;j < paramTypes.length;j++){
+				if(j > 0)	System.out.print(", ");
+				System.out.print(paramTypes[j].getSimpleName());
+			}
+			System.out.println(");");
+		}
+	}
+	
+	public static void printFields(Class c1){
+		Field[] fields = c1.getDeclaredFields();
+		
+		for (Field f : fields){
+			Class type = f.getType();
+			String name = f.getName();
+			System.out.print("	");
+			String modifiers = Modifier.toString(f.getModifiers());
+			if(modifiers.length()>0)	System.out.print(modifiers + " ");
+			
+			if(!type.getName().contains("."))
+				System.out.println(type.getName()+ " " + name + ";");
+			else{
+				try {
+					System.out.println(Class.forName(type.getName()).getSimpleName()+ " " + name + ";");
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+}
+```
 ##### <a href="#cate">回目录</href>
