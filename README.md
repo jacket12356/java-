@@ -250,3 +250,6 @@ LocalTime bedTime = LocalTime.of(22, 30); //或者LocalTime.of(22, 30, 0)
 
 下面的表格介绍了关于该类的一些操作：  
 ![md](https://github.com/jacket12356/java-/blob/master/4.png)
+
+我们学了这些新的Java时间类，为了实现向后兼容，处理老代码，标准库还提供了这样一些方法：
+![md](https://github.com/jacket12356/java-/blob/master/5.jpeg)
