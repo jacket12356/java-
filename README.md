@@ -204,3 +204,49 @@ public class LocalDates {
 `LocalDate firstTuesday = LocalDate.of(year, month, 1).with(TemporalAdjusters.nextOrSame(DayOfWeek.TUESDAY));`  
 *with*方法会返回一个新的`LocalDate`实例。  
 ![md](https://github.com/jacket12356/java-/blob/master/3.png);
+
+你还可以通过实现`TemporalAdjuster`接口，来自定义调节器。
+```java
+TemporalAdjuster NEXT_WORKDAY = w -> {
+    LocalDate result = (LocalDate) w;
+    do{
+        result = result.plusDays(1);
+    }while(result.getDayOfWeek().getValue() >= 6);
+    return result;
+}; //这个lambda表达式的参数类型是‘Temporal’,它必须被转为‘LocalDate’
+```
+
+测试代码：
+```java
+import java.time.*;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
+
+public class TimeTester {
+	public static void main(String... args){
+		//LocalDate firstTuesday = LocalDate.of(2017, 6, 1).with(TemporalAdjusters.nextOrSame(DayOfWeek.TUESDAY));
+		//System.out.println(firstTuesday);
+		
+		TemporalAdjuster NEXT_WORKDAY = w -> {
+		    LocalDate result = (LocalDate) w;
+		    do{
+		        result = result.plusDays(1);
+		    }while(result.getDayOfWeek().getValue() >= 6);
+		    return result;
+		};  //这个调节器实现了寻找下一个工作日的功能,遇到周末会跳过（do-while用在这儿很合适）
+		
+		LocalDate firstTuesday = LocalDate.of(2017, 6, 1).with(NEXT_WORKDAY);
+		System.out.println(firstTuesday);
+		
+	}
+}
+```
+### 6.4 LocalTime
+`LocalTime`代表了一天中的某一时刻，你可以用下面两个方法创建它的实例：
+```java
+LocalTime rightNow = LocalTime.now();
+LocalTime bedTime = LocalTime.of(22, 30); //或者LocalTime.of(22, 30, 0)
+```
+
+下面的表格介绍了关于该类的一些操作：  
+![md](https://github.com/jacket12356/java-/blob/master/4.png)
