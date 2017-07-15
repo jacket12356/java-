@@ -199,7 +199,8 @@ public class LocalDates {
     }
  }
 ```
-<a name="6.3">### 6.3 日期调整</href>
+<a name="6.3"> </href>
+### 6.3 日期调整
 为实现计划应用，你会经常需要计算日期，比如，“每月的第一个星期二”。标准库中的`TemporalAdjusters`提供了一些这样的静态方法，可以让你做一些你需要的日期计算。你可以这样算：  
 `LocalDate firstTuesday = LocalDate.of(year, month, 1).with(TemporalAdjusters.nextOrSame(DayOfWeek.TUESDAY));`  
 *with*方法会返回一个新的`LocalDate`实例。  
