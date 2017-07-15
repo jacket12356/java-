@@ -8,7 +8,7 @@
 
 
 >今天我们来专门说说Java中的时间表示
-### <a href="#cate">目录</href>
+### <a name="cate">目录</href>
 + <a href="#4.2.2">4.2.2</href>
 + <a href="#4.2.3">4.2.3</href>
 + <a href="#6.1">6.1</href>
@@ -42,7 +42,7 @@ int year = aThousandDaysLater.getYear(); //2002
 int month = aThousandDaysLater.getMonthValue(); //09
 int day = aThousandDaysLater.getDayOfMonth(); //26
 ```
-##### <a name="cate">回目录</href>
+##### <a href="#cate">回目录</href>
 <a name="4.2.3"> </href>
 ### 4.2.3 LocalDate类中的修改器与访问器
 这一节没讲啥有用的，不过有一个小程序很有趣：
@@ -73,7 +73,7 @@ public class CalendarTest{
     }
 }
 ```
-##### <a name="cate">回目录</href>
+##### <a href="#cate">回目录</href>
 
 ## 第6章 The Date and Time API
 > Time feels like an arrow, and we can easily set a starting point count forward and backward in seconds. So why is it so hard to deal with time? The problem is humans. All would be easy if we could just tell each other:“Meet me at 1253793600, and dot't be late!” But we want time to relate to daylight and the seasons. That's where things get complicated. Java 1.0 had a Date class that was, in hindsight, naive, and had most of its methods deprecated in Java 1.1 when a calendar class was introduced. Its API wasn't stellar, its instances were mutable, and it didn't deal with issues such as leap seconds. The third time is a charm, and the `java.time` API introduced in **Java SE 8** has remedied the flaws of the past and should serve us for quite some time.
@@ -151,7 +151,7 @@ public class Timeline {
     }
 }
 ```
-##### <a name="cate">回目录</href>
+##### <a href="#cate">回目录</href>
 <a name="6.2"> </href>
 ### 6.2 Local Dates
 这一节涉及到了Java用于人类交流的时间类：LocalDate/Time和TimeZone。
@@ -214,7 +214,7 @@ public class LocalDates {
     }
  }
 ```
-##### <a name="cate">回目录</href>
+##### <a href="#cate">回目录</href>
 <a name="6.3"> </href>
 ### 6.3 日期调整
 为实现计划应用，你会经常需要计算日期，比如，“每月的第一个星期二”。标准库中的`TemporalAdjusters`提供了一些这样的静态方法，可以让你做一些你需要的日期计算。你可以这样算：  
@@ -258,7 +258,7 @@ public class TimeTester {
 	}
 }
 ```
-##### <a name="cate">回目录</href>
+##### <a href="#cate">回目录</href>
 <a name="6.4"> </href>
 ### 6.4 LocalTime
 `LocalTime`代表了一天中的某一时刻，你可以用下面两个方法创建它的实例：
@@ -272,4 +272,4 @@ LocalTime bedTime = LocalTime.of(22, 30); //或者LocalTime.of(22, 30, 0)
 
 我们学了这些新的Java时间类，为了实现向后兼容，处理老代码，标准库还提供了这样一些方法：
 ![md](https://github.com/jacket12356/java-/blob/master/5.jpeg)
-##### <a name="cate">回目录</href>
+##### <a href="#cate">回目录</href>
