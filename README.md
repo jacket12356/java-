@@ -155,3 +155,52 @@ LocalDate涉及到的方法概览：
 `independenceDay.until(christmas)`  
 那将是一个大小为5个月零21天的`Period`实例，这个结果有点模糊，因为一个月有多少天并不确定，你还可以用下面的方式直接得出天数：  
 `independenceDay.until(christmas, ChronoUnit.DAYS)  //174 days` 
+
+
+除了`LocalDate`,标准库还提供了`MonthDay`，`YearMonth`，`Year`来描述完整日期的某一部分，例如，"December 25"可被描述为一个`MonthDay`实例。
+
+下面的例子描述了`LocalDate`的具体使用方法：
+```java
+package localdates;
+
+import java.time.*;
+import java.time.temporal.*;
+
+public class LocalDates {
+    public static void main(String[] args) {
+        LocalDate today = LocalDate.now(); // Today's date
+        System.out.println("today: " + today);
+
+        LocalDate alonzosBirthday = LocalDate.of(1903, 6, 14);
+        alonzosBirthday = LocalDate.of(1903, Month.JUNE, 14);
+        // Uses the Month enumeration
+        System.out.println("alonzosBirthday: " + alonzosBirthday);
+
+        LocalDate programmersDay = LocalDate.of(2018, 1, 1).plusDays(255);
+        // September 13, but in a leap year it would be September 12
+        System.out.println("programmersDay: " + programmersDay);
+
+        LocalDate independenceDay = LocalDate.of(2018, Month.JULY, 4);
+        LocalDate christmas = LocalDate.of(2018, Month.DECEMBER, 25);
+
+        System.out.println("Until christmas: " +
+        independenceDay.until(christmas));
+        System.out.println("Until christmas: "
+        + independenceDay.until(christmas, ChronoUnit.DAYS));
+
+        System.out.println(LocalDate.of(2016, 1, 31).plusMonths(1));
+        System.out.println(LocalDate.of(2016, 3, 31).minusMonths(1));
+
+        DayOfWeek startOfLastMillennium = LocalDate.of(1900, 1,
+        1).getDayOfWeek();
+        System.out.println("startOfLastMillennium: " + startOfLastMillennium);
+        System.out.println(startOfLastMillennium.getValue());
+        System.out.println(DayOfWeek.SATURDAY.plus(3));
+    }
+ }
+```
+### 6.3 日期调整
+为实现计划应用，你会经常需要计算日期，比如，“每月的第一个星期二”。标准库中的`TemporalAdjusters`提供了一些这样的静态方法，可以让你做一些你需要的日期计算。你可以这样算：  
+`LocalDate firstTuesday = LocalDate.of(year, month, 1).with(TemporalAdjusters.nextOrSame(DayOfWeek.TUESDAY));`  
+*with*方法会返回一个新的`LocalDate`实例。  
+![md](https://github.com/jacket12356/java-/blob/master/3.png);
