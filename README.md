@@ -393,4 +393,6 @@ public class ReflecTest {
 ![md](https://github.com/jacket12356/java-/blob/master/6.png)  
 ![md](https://github.com/jacket12356/java-/blob/master/7.png)  
 ![md](https://github.com/jacket12356/java-/blob/master/8.png)  
+![md](https://github.com/jacket12356/java-/blob/master/9.png)  
+![md](https://github.com/jacket12356/java-/blob/master/10.png)  
 ##### <a href="#cate">回目录</href>
