@@ -392,7 +392,40 @@ public class ReflecTest {
 ```
 ![md](https://github.com/jacket12356/java-/blob/master/6.png)  
 ![md](https://github.com/jacket12356/java-/blob/master/7.png)  
+```java
+public static void show(Object obj){
+	try{
+		Class cls = obj.getClass();
+		Field fs[] = cls.getDeclaredFields();
+		for(Field f: fs){
+			System.out.println(f.getName());
+			f.setAccessible(true);
+			System.out.println(f.get(obj));
+		}
+		//cls.getDeclaredField("name");
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+}
+```
 ![md](https://github.com/jacket12356/java-/blob/master/8.png)  
 ![md](https://github.com/jacket12356/java-/blob/master/9.png)  
 ![md](https://github.com/jacket12356/java-/blob/master/10.png)  
+```java
+public static void show(Object obj){
+	try{
+		Class cls = obj.getClass();
+		Method ms[] = cls.getDeclaredMethods();
+		for(Method m : ms){
+			System.out.println(m.getName());
+		}
+		Method m = cls.getDeclaredMethod("setName", String.class);
+		m.invoke(obj, "java");
+		//构造函数也大致相同
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+}
+```
 ##### <a href="#cate">回目录</href>
+
